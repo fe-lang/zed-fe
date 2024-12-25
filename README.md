@@ -2,16 +2,16 @@
 
 This extension adds Fe language support to the Zed editor.
 
-## Prerequisites
+## Installation
 
-`fe-language-server` must be installed and available in your PATH.
+### Fe Language Server
 
-At the moment you can visit [`language-server`](../../) and run:
+`fe-language-server` must be installed and available in your PATH:
 
 ```sh
-cargo install --path .
+cargo install --git https://github.com/ethereum/fe.git --branch fe-v2 fe-language-server
 ```
 
-## Installation
-You can install this extension in Zed using the GUI via `Extensions > Install Dev Extension`,
+### Zed Extension
+You can install this as a dev extension in Zed using the GUI via `Extensions > Install Dev Extension`,
 [as described here](https://zed.dev/docs/extensions/developing-extensions#developing-an-extension-locally).
