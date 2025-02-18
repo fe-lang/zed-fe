@@ -9,7 +9,7 @@ This extension adds Fe language support to the Zed editor.
 `fe-language-server` must be installed and available in your PATH:
 
 ```sh
-cargo install --git https://github.com/ethereum/fe.git --branch fe-v2 fe-language-server
+cargo install --git https://github.com/ethereum/fe.git fe-language-server
 ```
 
 ### Zed Extension
