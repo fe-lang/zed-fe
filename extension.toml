@@ -12,4 +12,4 @@ languages = ["Fe"]
 
 [grammars.fe]
 repository = "https://github.com/fe-lang/tree-sitter-fe.git"
-commit = "e181d7975715e08191c85f9980029749f6089b52"
+commit = "446be61cc1f38880f0a1b5701bdbc5c156adfafe"

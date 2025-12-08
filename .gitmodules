@@ -1,0 +1,3 @@
+[submodule "tree-sitter-fe"]
+	path = tree-sitter-fe
+	url = https://github.com/fe-lang/tree-sitter-fe.git
