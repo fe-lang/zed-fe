@@ -1,89 +1,68 @@
-(type_identifier) @type
-(primitive_type) @type.builtin
-(self) @variable.special
-(field_identifier) @property
+; === Types ===
 
-(trait_item name: (type_identifier) @type.interface)
-(impl_item trait: (type_identifier) @type.interface)
-(abstract_type trait: (type_identifier) @type.interface)
-(dynamic_type trait: (type_identifier) @type.interface)
-(trait_bounds (type_identifier) @type.interface)
+; Assume uppercase identifiers are types/constructors
+((identifier) @type
+ (#match? @type "^[A-Z]"))
+
+; Assume ALL_CAPS identifiers are constants
+((identifier) @constant
+ (#match? @constant "^_*[A-Z][A-Z\\d_]*$"))
+
+; Self type
+(self_type) @type.builtin
+
+; === Functions ===
+
+(function_definition name: (identifier) @function.definition)
 
 (call_expression
   function: [
     (identifier) @function
-    (scoped_identifier
-      name: (identifier) @function)
-    (field_expression
-      field: (field_identifier) @function.method)
+    (scoped_path name: (identifier) @function)
   ])
 
-(generic_function
-  function: [
-    (identifier) @function
-    (scoped_identifier
-      name: (identifier) @function)
-    (field_expression
-      field: (field_identifier) @function.method)
-  ])
+(method_call_expression
+  method: (identifier) @function.method)
 
-(function_item name: (identifier) @function.definition)
-(function_signature_item name: (identifier) @function.definition)
+; === Traits and Impls ===
 
-(macro_invocation
-  macro: [
-    (identifier) @function.special
-    (scoped_identifier
-      name: (identifier) @function.special)
-  ])
+(trait_definition name: (identifier) @type.interface)
+(impl_trait trait: (trait_ref (path (path_segment (identifier) @type.interface))))
+(super_trait_list (trait_ref (path (path_segment (identifier) @type.interface))))
+(type_bound (path (path_segment (identifier) @type.interface)))
 
-(macro_definition
-  name: (identifier) @function.special.definition)
+; === Struct/Enum/Contract/Msg names ===
 
-; Identifier conventions
+(struct_definition name: (identifier) @type)
+(enum_definition name: (identifier) @type)
+(contract_definition name: (identifier) @type)
+(msg_definition name: (identifier) @type)
 
-; Assume uppercase names are types/enum-constructors
-((identifier) @type
- (#match? @type "^[A-Z]"))
+; === Fields ===
 
-; Assume all-caps names are constants
-((identifier) @constant
- (#match? @constant "^_*[A-Z][A-Z\\d_]*$"))
+(field_expression field: (identifier) @property)
+(record_field_def name: (identifier) @property)
+(record_field name: (identifier) @property)
+(record_pattern_field name: (identifier) @property)
 
-[
-  "("
-  ")"
-  "{"
-  "}"
-  "["
-  "]"
-] @punctuation.bracket
+; === Parameters ===
 
-(_
-  .
-  "<" @punctuation.bracket
-  ">" @punctuation.bracket)
+(parameter name: (identifier) @variable.parameter)
+(uses_param name: (identifier) @variable.parameter)
 
-[
-  "."
-  ";"
-  ","
-  "::"
-] @punctuation.delimiter
+; === Attributes ===
 
-[
-  "#"
-] @punctuation.special
+(attribute name: (identifier) @attribute)
+(doc_comment) @comment.doc
+
+; === Keywords ===
+; Note: break, continue, pub, return, let are named nodes (break_statement, etc.)
+; so they need separate patterns
 
 [
   "as"
-  "async"
-  "await"
-  "break"
   "const"
-  "continue"
-  "default"
-  "dyn"
+  "contract"
   "else"
   "enum"
   "extern"
@@ -92,54 +71,45 @@
   "if"
   "impl"
   "in"
-  "let"
-  "loop"
-  "macro_rules!"
+  "init"
+  "ingot"
   "match"
   "mod"
-  "move"
-  "pub"
-  "ref"
-  "return"
-  "static"
+  "msg"
+  "mut"
+  "recv"
+  "self"
   "struct"
+  "super"
   "trait"
   "type"
-  "union"
   "unsafe"
   "use"
+  "uses"
   "where"
   "while"
-  "yield"
-  (crate)
-  (mutable_specifier)
-  (super)
+  "with"
 ] @keyword
 
-[
-  (string_literal)
-  (raw_string_literal)
-  (char_literal)
-] @string
+(break_statement) @keyword
+(continue_statement) @keyword
+(return_statement "return" @keyword)
+(let_statement "let" @keyword)
+(visibility) @keyword
 
+; === Literals ===
+
+(string_literal) @string
 (escape_sequence) @string.escape
-
-[
-  (integer_literal)
-  (float_literal)
-] @number
-
+(integer_literal) @number
 (boolean_literal) @constant
 
-[
-  (line_comment)
-  (block_comment)
-] @comment
+; === Comments ===
 
-[
-  (line_comment (doc_comment))
-  (block_comment (doc_comment))
-] @comment.doc
+(line_comment) @comment
+(block_comment) @comment
+
+; === Operators ===
 
 [
   "!="
@@ -150,14 +120,14 @@
   "&&"
   "*"
   "*="
+  "**"
+  "**="
   "+"
   "+="
   "-"
   "-="
   "->"
   ".."
-  "..="
-  "..."
   "/="
   ":"
   "<<"
@@ -171,22 +141,33 @@
   ">="
   ">>"
   ">>="
-  "@"
   "^"
   "^="
   "|"
   "|="
   "||"
-  "?"
+  "~"
 ] @operator
 
-; Avoid highlighting these as operators when used in doc comments.
 (unary_expression "!" @operator)
-operator: "/" @operator
 
-(lifetime) @lifetime
+; === Punctuation ===
 
-(parameter (identifier) @variable.parameter)
+[
+  "("
+  ")"
+  "{"
+  "}"
+  "["
+  "]"
+] @punctuation.bracket
 
-(attribute_item) @attribute
-(inner_attribute_item) @attribute
+[
+  "."
+  ","
+  "::"
+] @punctuation.delimiter
+
+[
+  "#"
+] @punctuation.special

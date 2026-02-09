@@ -11,5 +11,5 @@ name = "Fe LSP server"
 languages = ["Fe"]
 
 [grammars.fe]
-repository = "https://github.com/fe-lang/tree-sitter-fe.git"
-commit = "446be61cc1f38880f0a1b5701bdbc5c156adfafe"
+repository = "file:///home/micah/hacker-stuff-2023/fe-stuff/zed-fe/tree-sitter-fe"
+commit = "0c0a937d806aa9e227b8c3d311756ecf98c5a7e6"
