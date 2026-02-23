@@ -11,5 +11,6 @@ name = "Fe LSP server"
 languages = ["Fe"]
 
 [grammars.fe]
-repository = "file:///home/micah/hacker-stuff-2023/fe-stuff/zed-fe/tree-sitter-fe"
-commit = "0c0a937d806aa9e227b8c3d311756ecf98c5a7e6"
+repository = "https://github.com/argotorg/fe"
+commit = "d6453e2a17788b1021543cd7842e1d17f5154d98"
+path = "crates/tree-sitter-fe"

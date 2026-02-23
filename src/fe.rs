@@ -1,13 +1,28 @@
 use zed_extension_api::{self as zed, CodeLabel, CodeLabelSpan, Result};
 
-const SERVER_PATH: &str = "fe-language-server";
+const SERVER_PATH: &str = "fe";
+const SERVER_PATH_ENV: &str = "FE_PATH";
 
 struct FeAnalyzerExtension;
 impl FeAnalyzerExtension {
+    fn server_path_from_env(worktree: &zed::Worktree) -> Option<String> {
+        worktree.shell_env().into_iter().find_map(|(name, value)| {
+            if name == SERVER_PATH_ENV && !value.is_empty() {
+                Some(value)
+            } else {
+                None
+            }
+        })
+    }
+
     fn server_script_path(&mut self, worktree: &zed::Worktree) -> Result<String> {
+        if let Some(path) = Self::server_path_from_env(worktree) {
+            return Ok(path);
+        }
+
         worktree
             .which(SERVER_PATH)
-            .ok_or_else(|| "fe-language-server not found in PATH".into())
+            .ok_or_else(|| "fe not found in PATH".into())
     }
 }
 
@@ -24,8 +39,8 @@ impl zed::Extension for FeAnalyzerExtension {
         let server_path = self.server_script_path(worktree)?;
         Ok(zed::Command {
             command: server_path,
-            env: Default::default(),
-            args: Default::default(),
+            env: worktree.shell_env(),
+            args: vec!["lsp".into()],
         })
     }
 
