@@ -38,6 +38,11 @@
 (contract_definition name: (identifier) @type)
 (msg_definition name: (identifier) @type)
 
+; === Enum/Msg variant names ===
+
+(variant_def name: (identifier) @type.enum.variant)
+(msg_variant name: (identifier) @type.enum.variant)
+
 ; === Fields ===
 
 (field_expression field: (identifier) @property)
@@ -132,7 +137,7 @@
   ":"
   "<<"
   "<<="
-  "<"
+
   "<="
   "="
   "=="
