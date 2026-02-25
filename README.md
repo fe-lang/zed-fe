@@ -4,12 +4,18 @@ This extension adds Fe language support to the Zed editor.
 
 ## Installation
 
-### Fe Language Server
+### Fe CLI
 
-`fe-language-server` must be installed and available in your PATH:
+The `fe` CLI (which includes the language server) must be installed and available in your PATH:
 
 ```sh
-cargo install --git https://github.com/ethereum/fe.git fe-language-server
+curl -fsSL https://raw.githubusercontent.com/argotorg/fe/master/feup/feup.sh | bash
+```
+
+Or build from source:
+
+```sh
+cargo install --git https://github.com/argotorg/fe.git fe
 ```
 
 ### Zed Extension
