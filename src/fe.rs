@@ -27,16 +27,16 @@ impl FeAnalyzerExtension {
         if let Some(home) = worktree.shell_env().into_iter().find_map(|(k, v)| {
             if k == "HOME" { Some(v) } else { None }
         }) {
-            // Check ~/.fe/bin (installed by feup)
-            let feup_path = format!("{home}/.fe/bin/{SERVER_PATH}");
-            if std::fs::metadata(&feup_path).is_ok() {
-                return Ok(feup_path);
-            }
-
             // Check ~/.cargo/bin (installed from source)
             let cargo_path = format!("{home}/.cargo/bin/{SERVER_PATH}");
             if std::fs::metadata(&cargo_path).is_ok() {
                 return Ok(cargo_path);
+            }
+
+            // Check ~/.fe/bin (installed by feup)
+            let feup_path = format!("{home}/.fe/bin/{SERVER_PATH}");
+            if std::fs::metadata(&feup_path).is_ok() {
+                return Ok(feup_path);
             }
         }
 
