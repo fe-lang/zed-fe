@@ -12,5 +12,5 @@ languages = ["Fe"]
 
 [grammars.fe]
 repository = "https://github.com/argotorg/fe"
-commit = "fe3257412b30c0d234b43c11edbeb5eee17142fd"
+commit = "6df8c48c4f27074d878461fd4620d1a4992216ba"
 path = "crates/tree-sitter-fe"
