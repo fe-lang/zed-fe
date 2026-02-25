@@ -1,10 +1,10 @@
 id = "fe_language_zed"
 name = "Fe Language"
-version = "0.0.1"
+version = "0.0.2"
 schema_version = 1
-authors = ["fe <you@example.com>"]
-description = "Fe Language support."
-repository = "https://github.com/ethereum/fe"
+authors = ["Fe Language Team"]
+description = "⚗️ Fe language support: diagnostics, completion, hover, inlay hints, go-to-definition, find references, rename, and more."
+repository = "https://github.com/fe-lang/zed-fe"
 
 [language_servers.fe-lsp]
 name = "Fe LSP server"
