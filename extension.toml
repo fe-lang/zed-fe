@@ -11,6 +11,6 @@ name = "Fe LSP server"
 languages = ["Fe"]
 
 [grammars.fe]
-repository = "https://github.com/argotorg/fe"
-commit = "6df8c48c4f27074d878461fd4620d1a4992216ba"
-path = "crates/tree-sitter-fe"
+# Generated grammar mirror (root layout). Source of truth: argotorg/fe.
+repository = "https://github.com/fe-lang/tree-sitter-fe"
+commit = "4f8f4fcb6559d98c8e564c8da2542e0bc4736144" # tag v26.2.0
